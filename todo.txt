@@ -1,0 +1,5 @@
+TODO
+
+- [ ] Turn the grid stuff into its own library
+- [ ] Tidy up the main loop and variables
+

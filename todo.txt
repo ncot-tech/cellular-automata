@@ -1,5 +1,7 @@
 TODO
 
-- [ ] Turn the grid stuff into its own library
-- [ ] Tidy up the main loop and variables
+- [/] Turn the grid stuff into its own library
+    - [ ] Fix the magnifier
+    - [ ] Save and load grids
+- [x] Tidy up the main loop and variables
 

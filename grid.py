@@ -20,7 +20,8 @@ width, height = int(800 * dpi_factor), int(600 * dpi_factor)
 screen = pygame.display.set_mode((width, height))
 pygame.display.set_caption("Basic Pygame Program")
 
-grid_2d.setup(dpi_factor, 2, 8, 3, width, height)
+# 2 8 3
+grid_2d.setup(dpi_factor, 1, 1, 10, width, height)
 
 rule110ca = rule110.Rule110(grid_2d.grid_size_y, grid_2d.grid_size_x, grid_2d.grid_state)
 

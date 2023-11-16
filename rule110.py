@@ -16,23 +16,32 @@ class Rule110:
             b = self.grid[x+1][self.current_row]
             c = self.grid[x+2][self.current_row]
 
-            # Rules
-            if (a == 1 and b == 1 and c == 1):
-                self.grid[x+1][next_row] = 0
-            elif (a == 1 and b == 1 and c == 0):
-                self.grid[x+1][next_row] = 1
-            elif (a == 1 and b == 0 and c == 1):
-                self.grid[x+1][next_row] = 1
-            elif (a == 1 and b == 0 and c == 0):
-                self.grid[x+1][next_row] = 0
-            elif (a == 0 and b == 1 and c == 1):
-                self.grid[x+1][next_row] = 1
-            elif (a == 0 and b == 1 and c == 0):
-                self.grid[x+1][next_row] = 1
-            elif (a == 0 and b == 0 and c == 1):
-                self.grid[x+1][next_row] = 1
-            elif (a == 0 and b == 0 and c == 0):
-                self.grid[x+1][next_row] = 0
+            # Rule 90 - draws sierpinski triangle
+            #self.grid[x+1][next_row] = a ^ c
+            
+            # Rule 30 - draws shell pattern thing
+            self.grid[x+1][next_row] = a ^ (b | c)
+
+            # Rule 184 - to be coded, does traffic somehow
+
+
+            # Rule 110
+            #if (a == 1 and b == 1 and c == 1):
+            #    self.grid[x+1][next_row] = 0
+            #elif (a == 1 and b == 1 and c == 0):
+            #    self.grid[x+1][next_row] = 1
+            #elif (a == 1 and b == 0 and c == 1):
+            #    self.grid[x+1][next_row] = 1
+            #elif (a == 1 and b == 0 and c == 0):
+            #    self.grid[x+1][next_row] = 0
+            #elif (a == 0 and b == 1 and c == 1):
+            #    self.grid[x+1][next_row] = 1
+            #elif (a == 0 and b == 1 and c == 0):
+            #    self.grid[x+1][next_row] = 1
+            #elif (a == 0 and b == 0 and c == 1):
+            #    self.grid[x+1][next_row] = 1
+            #elif (a == 0 and b == 0 and c == 0):
+            #    self.grid[x+1][next_row] = 0
 
         self.current_row = next_row
         

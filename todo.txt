@@ -1,7 +1,7 @@
 TODO
 
 - [/] Turn the grid stuff into its own library
-    - [ ] Fix the magnifier
+    - [x] Fix the magnifier
     - [ ] Save and load grids
 - [x] Tidy up the main loop and variables
-
+- [ ] Implement a simple cellular automata to work out the way to do this

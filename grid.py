@@ -2,34 +2,53 @@
 
 import pygame
 import sys
-import grid_2d
 import rule110
+import menubar
+import wireworld 
+
+current_state = 0
+
+def state0():
+    global current_state
+    current_state = 0
+def state1():
+    global current_state
+    current_state = 1
+def state2():
+    global current_state
+    current_state = 2
+def state3():
+    global current_state
+    current_state = 3
+def start_sim():
+    global simulating
+    simulating = True
 
 # Initialize Pygame
 pygame.init()
 
 # Set up display
-#width, height = 800, 600
-# Set up display
 display_info = pygame.display.Info()
-print (display_info)
 
 dpi_factor = 2
-width, height = int(800 * dpi_factor), int(600 * dpi_factor)
+width, height = int(800), int(600)
 
-screen = pygame.display.set_mode((width, height))
+screen = pygame.display.set_mode((width * dpi_factor, height * dpi_factor))
 pygame.display.set_caption("Basic Pygame Program")
 
-# 2 8 3
-grid_2d.setup(dpi_factor, 1, 1, 10, width, height)
+#rule110ca = rule110.Rule110(grid_2d.grid_size_y, grid_2d.grid_size_x, grid_2d.grid_state)
 
-rule110ca = rule110.Rule110(grid_2d.grid_size_y, grid_2d.grid_size_x, grid_2d.grid_state)
+menu_height = 16
+menu = menubar.MenuBar(dpi_factor,0,0,width,menu_height)
+menu.add_item((0,0,0), state0)
+menu.add_item((0,0,255), state1)
+menu.add_item((255,0,0), state2)
+menu.add_item((255,255,0), state3)
+menu.add_item((0,255,0), start_sim)
 
-# Set up colors
-black = (0, 0, 0)
-white = (255, 255, 255)
-red = (255, 0, 0)
-yellow = (0, 255, 255)
+grid_control = wireworld.WireWorld(dpi_factor,0, menu_height, width, height-menu_height, 8)
+grid_states = [(0,0,0),(0,0,255),(255,0,0),(255,255,0)]
+grid_control.define_states(grid_states)
 
 # Set up clock for controlling the frame rate
 clock = pygame.time.Clock()
@@ -41,33 +60,24 @@ running = True
 while running:
     # Handle events
     mouse_x, mouse_y = pygame.mouse.get_pos()
-    grid_2d.update_highlight(mouse_x, mouse_y)    
-    
+    menu.update(mouse_x, mouse_y)
+
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
 
         elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:  # Left mouse button clicked
-            grid_2d.toggle_grid_cell(mouse_x, mouse_y)
-
-        if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_SPACE:
-                simulating = True
-            elif event.key == pygame.K_c:
-                grid_2d.clear()
-                simulating = False
+            if mouse_y <= menu_height * dpi_factor:
+                menu.process_click()
+            else:
+                grid_control.set_grid_cell_mouse(mouse_x, mouse_y, current_state)
 
     if (simulating):
-        simulating = rule110ca.step()
+        simulating = grid_control.simulate()
+        #simulating = rule110ca.step()
        # Update display
-    screen.fill(black)
-
-    grid_2d.draw_grid(screen)
-    
-    if (not simulating):
-        grid_2d.draw_highlight(screen)
-        grid_2d.draw_magnified_view(screen, mouse_x, mouse_y)
-
+    menu.draw(screen)
+    grid_control.draw(screen)
     pygame.display.flip()
 
     # Cap the frame rate

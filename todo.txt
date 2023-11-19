@@ -1,7 +1,10 @@
 TODO
 
-- [/] Turn the grid stuff into its own library
+- [X] Turn the grid stuff into its own library
     - [x] Fix the magnifier
-    - [ ] Save and load grids
+- [ ] Save and load grids
 - [x] Tidy up the main loop and variables
-- [ ] Implement a simple cellular automata to work out the way to do this
+- [X] Implement a simple cellular automata to work out the way to do this
+- [X] Wireworld
+    - [X] GUI buttons to select type of node to place
+    - [X] Wireworld logic

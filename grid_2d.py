@@ -32,8 +32,8 @@ def setup(dpi_factor, gap_size, square_size, magnify_factor, screen_width, scree
     global grid_state, _gap_size_x, _gap_size_y
     global _screen_width, _screen_height
 
-    _screen_width = screen_width
-    _screen_height = screen_height
+    _screen_width = screen_width * dpi_factor
+    _screen_height = screen_height * dpi_factor
 
     # Set up grid parameters
     _square_size = square_size * dpi_factor

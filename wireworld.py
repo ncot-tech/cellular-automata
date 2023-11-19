@@ -17,9 +17,7 @@ class WireWorld(GridControl):
             for j in range(self.grid_size_y):
                 current_state = self.get_cell_state(i, j)
                 if current_state != 0:
-                    print (f"Current state for {i},{j} is {current_state}")
                     if current_state == 1 or current_state == 2:
-                        print (f"Setting {i},{j} to {current_state+1}")
                         self.set_cell_state_other(i,j,current_state+1)
                     elif current_state == 3:
                         neighbour_heads = 0
@@ -28,7 +26,6 @@ class WireWorld(GridControl):
                                 if (p == 0 and q == 0): continue
                                 if self.get_cell_state(i+p, j+q) == 1:
                                     neighbour_heads += 1
-                        print (f"Neighbours = {neighbour_heads}")
                         if 1 <= neighbour_heads <= 2:
                             self.set_cell_state_other(i,j,1)
                         else:

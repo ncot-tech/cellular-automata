@@ -8,3 +8,10 @@ TODO
 - [X] Wireworld
     - [X] GUI buttons to select type of node to place
     - [X] Wireworld logic
+- [X] Life
+    - [X] Copy main python and edit
+    - [X] Copy and rename wireworld python file
+- [X] Tidy up
+    - [X] One program for each CA
+    - [X] Name them better
+- [ ] Fix 1-D CAs to use new grid class

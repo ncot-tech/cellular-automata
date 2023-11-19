@@ -31,6 +31,11 @@ class GridControl:
     def define_states(self, states):
         self.states = states
 
+    def reset_grids(self):
+        self.clear_grid()
+        self.switch_grids()
+        self.clear_grid()
+
     def clear_grid(self):
         for x in range(self.grid_size_x):
             for y in range(self.grid_size_y):
@@ -48,7 +53,7 @@ class GridControl:
             self.current_grid[clicked_row][clicked_col] = state
 
     def draw(self, screen):
-        self.surface.fill((128,128,128))
+        self.surface.fill((64,64,64))
 
         for i in range(self.grid_size_x):
             for j in range(self.grid_size_y):

@@ -17,8 +17,9 @@ def start_sim():
     global simulating
     simulating = not simulating
 def reset_sim():
-    global simulating
+    global simulating,cycle
     simulating = False
+    cycle = 0
     grid_control.reset_grids()
 
 # Initialize Pygame

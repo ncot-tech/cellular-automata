@@ -3,6 +3,7 @@ TODO
 - [X] Turn the grid stuff into its own library
     - [x] Fix the magnifier
 - [ ] Save and load grids
+	- [ ] Sample starting grids
 - [x] Tidy up the main loop and variables
 - [X] Implement a simple cellular automata to work out the way to do this
 - [X] Wireworld
@@ -14,4 +15,4 @@ TODO
 - [X] Tidy up
     - [X] One program for each CA
     - [X] Name them better
-- [ ] Fix 1-D CAs to use new grid class
+- [X] Fix 1-D CAs to use new grid class

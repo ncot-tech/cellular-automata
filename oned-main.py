@@ -29,7 +29,9 @@ def run_110():
 def reset_sim():
     global simulating
     simulating = False
-    grid_control.reset_grids()
+    grid_control[0].reset_grids()
+    grid_control[1].reset_grids()
+    grid_control[2].reset_grids()
 
 # Initialize Pygame
 pygame.init()
@@ -60,9 +62,11 @@ menu.add_item((32,0,0), "Reset", reset_sim)
 grid_control = [None, None, None]
 
 grid_states = [(0,0,0),(0,0,255)]
-grid_control[0] = wireworld.WireWorld(dpi_factor,0, menu_height, width, height-menu_height, 8)
+grid_control[0] = oned.Rule30(dpi_factor,0, menu_height, width, height-menu_height, 8)
 grid_control[0].define_states(grid_states)
+grid_control[1] = oned.Rule90(dpi_factor,0, menu_height, width, height-menu_height, 8)
 grid_control[1].define_states(grid_states)
+grid_control[2] = oned.Rule110(dpi_factor,0, menu_height, width, height-menu_height, 8)
 grid_control[2].define_states(grid_states)
 
 # Set up clock for controlling the frame rate
@@ -85,14 +89,14 @@ while running:
             if mouse_y <= menu_height * dpi_factor:
                 menu.process_click()
             else:
-                grid_control.set_grid_cell_mouse(mouse_x, mouse_y, current_state)
+                grid_control[current_sim].set_grid_cell_mouse(mouse_x, mouse_y, current_state)
 
     if (simulating):
-        grid_control.simulate()
-        #simulating = rule110ca.step()
+        if (grid_control[current_sim].simulate() == False):
+            simulating = False
        # Update display
     menu.draw(screen)
-    grid_control.draw(screen)
+    grid_control[current_sim].draw(screen)
     pygame.display.flip()
 
     # Cap the frame rate

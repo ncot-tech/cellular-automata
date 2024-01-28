@@ -52,8 +52,11 @@ class GridControl:
         if 0 <= clicked_row < self.grid_size_x and 0 <= clicked_col < self.grid_size_y:
             self.current_grid[clicked_row][clicked_col] = state
 
-    def draw(self, screen):
-        self.surface.fill((64,64,64))
+    def draw(self, screen, gridlines = True):
+        if gridlines:
+            self.surface.fill((64,64,64))
+        else:
+            self.surface.fill(self.states[0])
 
         for i in range(self.grid_size_x):
             for j in range(self.grid_size_y):

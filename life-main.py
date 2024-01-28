@@ -6,6 +6,7 @@ import conwaylife
 import menubar
 
 current_state = 0
+show_grid = True
 
 def state0():
     global current_state
@@ -21,6 +22,9 @@ def reset_sim():
     simulating = False
     cycle = 0
     grid_control.reset_grids()
+def toggle_grid():
+    global show_grid
+    show_grid = not show_grid
 
 # Initialize Pygame
 pygame.init()
@@ -37,14 +41,13 @@ pygame.display.set_caption("Conway's Life Cellular Automaton")
 font = pygame.font.SysFont(None, 16)
 cycle_text = font.render("", True, (64,64,64))
 
-#rule110ca = rule110.Rule110(grid_2d.grid_size_y, grid_2d.grid_size_x, grid_2d.grid_state)
-
 menu_height = 16
 menu = menubar.MenuBar(dpi_factor,0,0,width,menu_height)
 menu.add_item((32,32,32), "Dead", state0)
 menu.add_item((32,32,32), "Alive", state1)
 menu.add_item((0,32,0), "Run / Stop", start_sim)
 menu.add_item((32,0,0), "Reset", reset_sim)
+menu.add_item((32,0,0), "Grid", toggle_grid)
 
 grid_control = conwaylife.ConwayLife(dpi_factor,0, menu_height, width, height-menu_height, 8)
 grid_states = [(0,0,0),(0,255,0)]
@@ -58,6 +61,7 @@ mouse_x, mouse_y = 0, 0  # Initialize mouse coordinates
 simulating = False
 running = True
 cycle = 0
+dragging = False
 while running:
     # Handle events
     mouse_x, mouse_y = pygame.mouse.get_pos()
@@ -71,6 +75,12 @@ while running:
             if mouse_y <= menu_height * dpi_factor:
                 menu.process_click()
             else:
+                dragging = True
+                grid_control.set_grid_cell_mouse(mouse_x, mouse_y, current_state)
+        elif event.type == pygame.MOUSEBUTTONUP and event.button == 1:
+            dragging = False
+        elif event.type == pygame.MOUSEMOTION:
+            if dragging:
                 grid_control.set_grid_cell_mouse(mouse_x, mouse_y, current_state)
 
     if (simulating):
@@ -80,7 +90,7 @@ while running:
     # Update display
     menu.draw(screen)
     screen.blit(cycle_text, (500,8))
-    grid_control.draw(screen)
+    grid_control.draw(screen, show_grid)
     pygame.display.flip()
 
     # Cap the frame rate
